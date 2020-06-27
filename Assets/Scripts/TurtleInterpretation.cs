@@ -8,7 +8,9 @@ public class TurtleInterpretation : MonoBehaviour
     [SerializeField] protected string[] _rewritingRules;
     [SerializeField, Range(0.1f, 90f)] protected float _angle = 90;
     [SerializeField, Range(0, 4)] protected int _depth = 1;
-    [SerializeField] Color color = Color.black;
+    [SerializeField] Color _color = Color.black;
+
+    public List<Vector3> VertexPositions { get; private set; }
 
     protected float _length = 1f;
     protected List<char> _order = default;
@@ -22,13 +24,16 @@ public class TurtleInterpretation : MonoBehaviour
         }
         lineMat = new Material(shader);
 
+        VertexPositions = new List<Vector3>();
+
         _order = ComputeOrder(_initialOrder, _rewritingRules, _depth);
     }
 
     private void OnRenderObject() {
-        lineMat.SetColor("_Color", color);
+        lineMat.SetColor("_Color", _color);
         lineMat.SetPass(0);
 
+        VertexPositions.Clear();
         DrawLine(_order, _length, _angle);
     }
 
@@ -38,6 +43,7 @@ public class TurtleInterpretation : MonoBehaviour
 
     void DrawLine(List<char> orders, float length, float angle) {
         Matrix4x4 current = transform.localToWorldMatrix;
+        VertexPositions.Add(new Vector3(current.m03, current.m13, current.m23));
 
         foreach(char c in orders) {
             switch (c) {
@@ -50,6 +56,7 @@ public class TurtleInterpretation : MonoBehaviour
                     GL.End();
                     GL.PopMatrix();
                     current *= Matrix4x4.Translate(new Vector3(0f, length, 0f));
+                    VertexPositions.Add(new Vector3(current.m03, current.m13, current.m23));
                     break;
                 case 'f':
                     current *= Matrix4x4.Translate(new Vector3(0f, length, 0f));
