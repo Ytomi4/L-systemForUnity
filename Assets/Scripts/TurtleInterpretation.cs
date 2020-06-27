@@ -74,13 +74,17 @@ public class TurtleInterpretation : MonoBehaviour
 
     List<char> ComputeOrder(string initialOrder, string[] rewritingRules, int depth) {
         List<char> orders = new List<char>();
+
+        foreach (char c in initialOrder)
+            orders.Add(c);
+
         for (int i = 0; i < depth; i++) {
-            orders = RewritingOrder(rewritingRules, initialOrder);
+            orders = RewritingOrder(rewritingRules, orders);
         }
         return orders;
     }
 
-    List<char> RewritingOrder(string[] rewritingRules, string previousOrders) {
+    List<char> RewritingOrder(string[] rewritingRules, List<char> previousOrders) {
         List<char> currentOrders = new List<char>();
         
         foreach(char c in previousOrders) {
