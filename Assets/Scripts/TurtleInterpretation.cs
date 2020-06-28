@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurtleInterpretation : MonoBehaviour
-{
+public class TurtleInterpretation : MonoBehaviour {
     [SerializeField] protected string _initialOrder = "F";
     [SerializeField] protected string[] _rewritingRules;
     [SerializeField, Range(0.1f, 90f)] protected float _angle = 90;
     [SerializeField, Range(0, 4)] protected int _depth = 1;
     [SerializeField] Color _color = Color.black;
+
+    [SerializeField] bool _userInputEnable = true;
+    [SerializeField] InputManager _input = default;
 
     public List<Vector3> VertexPositions { get; private set; }
 
@@ -26,7 +28,11 @@ public class TurtleInterpretation : MonoBehaviour
 
         VertexPositions = new List<Vector3>();
 
-        _order = ComputeOrder(_initialOrder, _rewritingRules, _depth);
+        if (_userInputEnable) {
+            _order = ComputeOrder(_input.InitialOrder, _input.RewritingRules, _input.Depth);
+        } else {
+            _order = ComputeOrder(_initialOrder, _rewritingRules, _depth);
+        }
     }
 
     private void OnRenderObject() {
@@ -34,7 +40,12 @@ public class TurtleInterpretation : MonoBehaviour
         lineMat.SetPass(0);
 
         VertexPositions.Clear();
-        DrawLine(_order, _length, _angle);
+        if (_userInputEnable) {
+            _order = ComputeOrder(_input.InitialOrder, _input.RewritingRules, _input.Depth);
+            DrawLine(_order, _length, _input.Angle);
+        } else {
+            DrawLine(_order, _length, _angle);
+        }
     }
 
     private void OnValidate() {
