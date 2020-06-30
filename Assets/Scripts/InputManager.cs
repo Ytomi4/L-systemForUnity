@@ -16,6 +16,9 @@ public class InputManager : MonoBehaviour
     [SerializeField] protected Text _angleText;
 
     private void OnEnable() {
+#if !UNITY_EDITOR && UNITY_WEBGL
+        WebGLInput.captureAllKeyboardInput = false;
+#endif
         _initialOrder.text = "F";
         _rewritinRule.text = "F";
         _depth.value = 1;
@@ -34,7 +37,7 @@ public class InputManager : MonoBehaviour
         Depth = _depth.value;
         Angle = _angle.value;
 
-        _angleText.text = "δ = " + Angle;
+        _angleText.text = "angle = " + Angle;
 
         //Debug.Log("InitialOrder = " + InitialOrder + ", RewritingRule = " + RewritingRule + ", Depth = " + Depth + ", Angle = " + Angle);
     }

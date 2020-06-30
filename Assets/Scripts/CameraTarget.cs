@@ -24,6 +24,6 @@ public class CameraTarget : MonoBehaviour
         float w = maxX - center.x;
         float h = maxY - center.y;
         CameraSize = (h / Screen.height > w / Screen.width) ? h : w * Screen.height / Screen.width;
-        if (CameraSize == 0f) CameraSize = 0.8f;
+        if (CameraSize < 0.1f) CameraSize = 0.8f;
     }
 }

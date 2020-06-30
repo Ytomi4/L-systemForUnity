@@ -154,7 +154,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -263,7 +263,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -745,7 +745,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &296924567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1297,6 +1297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 665600024}
   - component: {fileID: 665600023}
+  - component: {fileID: 665600025}
   m_Layer: 0
   m_Name: DrawFractal
   m_TagString: Untagged
@@ -1316,13 +1317,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96f30f7a1136735428bcb61a90a6266e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialOrder: F
+  _initialOrder: F+F+F+F+F
   _rewritingRules:
-  - F
+  - F+f+f-F+--------FFFFFFFFFFFF-FFF
   _angle: 90
-  _depth: 1
+  _depth: 3
   _color: {r: 0, g: 0, b: 0, a: 1}
-  _userInputEnable: 1
+  _userInputEnable: 0
   _input: {fileID: 296924571}
 --- !u!4 &665600024
 Transform:
@@ -1338,6 +1339,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &665600025
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665600022}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8feb494a91ec32c49aeae8614e714b12, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1442,6 +1462,7 @@ GameObject:
   - component: {fileID: 738134637}
   - component: {fileID: 738134636}
   - component: {fileID: 738134635}
+  - component: {fileID: 738134638}
   m_Layer: 5
   m_Name: InitialOrder
   m_TagString: Untagged
@@ -1569,6 +1590,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 738134633}
   m_CullTransparentMesh: 0
+--- !u!114 &738134638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738134633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc33a39070010f94fb1c2dd721c1286d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showHtmlElement: 0
 --- !u!1 &798742878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1901,6 +1935,7 @@ GameObject:
   - component: {fileID: 1036265539}
   - component: {fileID: 1036265538}
   - component: {fileID: 1036265537}
+  - component: {fileID: 1036265540}
   m_Layer: 5
   m_Name: RewritingRule
   m_TagString: Untagged
@@ -2028,6 +2063,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1036265535}
   m_CullTransparentMesh: 0
+--- !u!114 &1036265540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036265535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc33a39070010f94fb1c2dd721c1286d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showHtmlElement: 0
 --- !u!1 &1101256126
 GameObject:
   m_ObjectHideFlags: 0
@@ -2522,7 +2570,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "F\u2192"
+  m_Text: F->
 --- !u!222 &1777068044
 CanvasRenderer:
   m_ObjectHideFlags: 0
