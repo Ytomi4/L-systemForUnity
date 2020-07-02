@@ -53,7 +53,10 @@ public class TurtleInterpretation : MonoBehaviour {
     }
 
     void DrawLine(List<char> orders, float length, float angle) {
-        Matrix4x4 current = transform.localToWorldMatrix;
+        List<Matrix4x4> roots = new List<Matrix4x4>();
+        roots.Add(transform.localToWorldMatrix);
+        Matrix4x4 current = roots[roots.Count - 1];
+        roots.RemoveAt(roots.Count - 1);
         VertexPositions.Add(new Vector3(current.m03, current.m13, current.m23));
 
         foreach(char c in orders) {
@@ -77,6 +80,13 @@ public class TurtleInterpretation : MonoBehaviour {
                     break;
                 case '-':
                     current *= Matrix4x4.Rotate(Quaternion.AngleAxis(angle, Vector3.forward));
+                    break;
+                case '[':
+                    roots.Add(current);
+                    break;
+                case ']':
+                    current = roots[roots.Count - 1];
+                    roots.RemoveAt(roots.Count - 1);
                     break;
                     
             }
