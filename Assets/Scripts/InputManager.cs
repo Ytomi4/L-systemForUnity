@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ public class InputManager : MonoBehaviour
     public string[] RewritingRules { get; private set; } = new string[1];
     public int Depth { get; private set; }
     public float Angle { get; private set; }
+
+    public Action UpdateInput;
 
     [SerializeField] protected InputField _initialOrder, _rewritinRule;
     [SerializeField] protected Dropdown _depth;
@@ -25,10 +28,12 @@ public class InputManager : MonoBehaviour
         _angle.value = 90f;
         SetValues();
 
-        _initialOrder.onValueChanged.AddListener(delegate { SetValues(); });
-        _rewritinRule.onValueChanged.AddListener(delegate { SetValues(); });
-        _depth.onValueChanged.AddListener(delegate { SetValues(); });
-        _angle.onValueChanged.AddListener(delegate { SetValues(); });
+        _initialOrder.onValueChanged.AddListener(delegate { UpdateInput(); });
+        _rewritinRule.onValueChanged.AddListener(delegate { UpdateInput(); });
+        _depth.onValueChanged.AddListener(delegate { UpdateInput(); });
+        _angle.onValueChanged.AddListener(delegate { UpdateInput(); });
+
+        UpdateInput += SetValues;
     }
 
     private void SetValues() {

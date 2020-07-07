@@ -12,6 +12,7 @@ public class TurtleInterpretation : MonoBehaviour {
     [SerializeField] bool _userInputEnable = true;
     [SerializeField] InputManager _input = default;
 
+    //全体をカメラに移すため、全頂点の位置を用意しておく
     public List<Vector3> VertexPositions { get; private set; }
 
     protected float _length = 1f;
@@ -30,6 +31,7 @@ public class TurtleInterpretation : MonoBehaviour {
 
         if (_userInputEnable) {
             _order = ComputeOrder(_input.InitialOrder, _input.RewritingRules, _input.Depth);
+            _input.UpdateInput += OnInputeValueChanged;
         } else {
             _order = ComputeOrder(_initialOrder, _rewritingRules, _depth);
         }
@@ -40,8 +42,8 @@ public class TurtleInterpretation : MonoBehaviour {
         lineMat.SetPass(0);
 
         VertexPositions.Clear();
+
         if (_userInputEnable) {
-            _order = ComputeOrder(_input.InitialOrder, _input.RewritingRules, _input.Depth);
             DrawLine(_order, _length, _input.Angle);
         } else {
             DrawLine(_order, _length, _angle);
@@ -50,6 +52,10 @@ public class TurtleInterpretation : MonoBehaviour {
 
     private void OnValidate() {
         _order = ComputeOrder(_initialOrder, _rewritingRules, _depth);
+    }
+
+    private void OnInputeValueChanged() {
+        _order = ComputeOrder(_input.InitialOrder, _input.RewritingRules, _input.Depth);
     }
 
     void DrawLine(List<char> orders, float length, float angle) {
